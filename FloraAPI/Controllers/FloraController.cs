@@ -1,4 +1,5 @@
-﻿using FloraAPI.Models;
+﻿//using FloraAPI.Models;
+using FloraAPI.Services.FloraService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,86 +9,58 @@ namespace FloraAPI.Controllers
     [ApiController]
     public class FloraController : ControllerBase
     {
-        private static List<Flora> allFlora = new List<Flora>
-            {
-                new Flora
-                {
-                    Id = 1,
-                    Name = "Acanthus mollis",
-                    Kingdom = "Plantae",
-                    Family = "Acanthaceae",
-                    Genus = "Acanthus",
-                    Species = "A. mollis"
-                },
-                new Flora
-                {
-                    Id = 2,
-                    Name = "Cistus monspeliensis",
-                    Kingdom = "Plantae",
-                    Family = "Cistaceae",
-                    Genus = "Cistus",
-                    Species = "C. monspeliensis"
-                },
-                new Flora
-                {
-                    Id = 3,
-                    Name = "Cota tinctoria",
-                    Kingdom = "Plantae",
-                    Family = "Asteraceae",
-                    Genus = "Cota",
-                    Species =  "C. tinctoria"
-                }
-            };
+        private readonly IFloraService _floraService;
+        public FloraController(IFloraService floraService)
+        {
+            _floraService = floraService; //interface
+            
+        }
 
         [HttpGet]   //only when using swegger
         public async Task<ActionResult<List<Flora>>> GetAllFlora()
         {
-            return Ok(allFlora); 
+            return _floraService.GetAllFlora();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Flora>> GetMonoFlora(int id)
         {
-            var monoFlora = allFlora.Find(x => x.Id == id);
-            if (monoFlora == null)
-                    return NotFound("Flora is not in a list");
-            return Ok(monoFlora);
+            var result = _floraService.GetMonoFlora(id);
+            if (result is null)
+            {
+                return NotFound("NO Flora");
+            }
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<List<Flora>>> AddFlora(Flora flora)
         {
-            allFlora.Add(flora);
-            return Ok(allFlora);
+            var result = _floraService.AddFlora(flora);
+            return Ok(result);
+
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<List<Flora>>> UpdateFlora(int id, Flora request)
         {
-            var flora = allFlora.Find(x => x.Id == id);
-            if (flora == null)
-                return NotFound("Flora is not in a list");
-
-            //manually amend data
-            flora.Name = request.Name;
-            flora.Kingdom = request.Kingdom;
-            flora.Family = request.Family;
-            flora.Genus = request.Genus;
-            flora.Species = request.Species;
-
-            return Ok(allFlora);
+            var result = _floraService.UpdateFlora(id, request);
+            if (result is null)
+            {
+                return NotFound("NO Flora");
+            }
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Flora>>> DeleteeFlora(int id)
+        public async Task<ActionResult<List<Flora>>> DeleteFlora(int id)
         {
-            var flora = allFlora.Find(x => x.Id == id);
-            if (flora == null)
-                return NotFound("Flora is not in a list");
-
-            allFlora.Remove(flora);
-
-            return Ok(allFlora);
+            var result = _floraService.DeleteFlora(id);
+            if ( result is null)
+            {
+                return NotFound("NO Flora");
+            }
+            return Ok(result);
         }
     }
 }
