@@ -2,10 +2,10 @@
 {
     public interface IFloraService
     {
-        List<Flora> GetAllFlora();
-        Flora? GetMonoFlora(int id);
-        List<Flora> AddFlora(Flora flora);
-        List<Flora>? UpdateFlora(int id, Flora request);
-        List<Flora>? DeleteFlora(int id);
+        Task<List<Flora>> GetAllFlora();
+        Task<Flora?> GetMonoFlora(int id);
+        Task<List<Flora>> AddFlora(Flora flora);
+        Task<List<Flora>?> UpdateFlora(int id, Flora request);
+        Task<List<Flora>?> DeleteFlora(int id);
     }
 }

@@ -19,13 +19,13 @@ namespace FloraAPI.Controllers
         [HttpGet]   //only when using swegger
         public async Task<ActionResult<List<Flora>>> GetAllFlora()
         {
-            return _floraService.GetAllFlora();
+            return await _floraService.GetAllFlora();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Flora>> GetMonoFlora(int id)
         {
-            var result = _floraService.GetMonoFlora(id);
+            var result = await _floraService.GetMonoFlora(id);
             if (result is null)
             {
                 return NotFound("NO Flora");
@@ -36,7 +36,7 @@ namespace FloraAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<List<Flora>>> AddFlora(Flora flora)
         {
-            var result = _floraService.AddFlora(flora);
+            var result = await _floraService.AddFlora(flora);
             return Ok(result);
 
         }
@@ -44,7 +44,7 @@ namespace FloraAPI.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<List<Flora>>> UpdateFlora(int id, Flora request)
         {
-            var result = _floraService.UpdateFlora(id, request);
+            var result = await _floraService.UpdateFlora(id, request);
             if (result is null)
             {
                 return NotFound("NO Flora");
@@ -55,7 +55,7 @@ namespace FloraAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Flora>>> DeleteFlora(int id)
         {
-            var result = _floraService.DeleteFlora(id);
+            var result = await _floraService.DeleteFlora(id);
             if ( result is null)
             {
                 return NotFound("NO Flora");

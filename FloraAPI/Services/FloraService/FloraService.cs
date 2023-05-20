@@ -2,70 +2,53 @@
 {
     public class FloraService : IFloraService
     {
-        private static List<Flora> allFlora = new List<Flora>
-            {
-                new Flora
-                {
-                    Id = 1,
-                    Name = "Acanthus mollis",
-                    Kingdom = "Plantae",
-                    Family = "Acanthaceae",
-                    Genus = "Acanthus",
-                    Species = "A. mollis"
-                },
-                new Flora
-                {
-                    Id = 2,
-                    Name = "Cistus monspeliensis",
-                    Kingdom = "Plantae",
-                    Family = "Cistaceae",
-                    Genus = "Cistus",
-                    Species = "C. monspeliensis"
-                },
-                new Flora
-                {
-                    Id = 3,
-                    Name = "Cota tinctoria",
-                    Kingdom = "Plantae",
-                    Family = "Asteraceae",
-                    Genus = "Cota",
-                    Species =  "C. tinctoria"
-                }
-            };
-
-        public List<Flora> AddFlora(Flora flora)
+        private readonly DataContext _context;
+        public FloraService(DataContext context) //inject data
         {
-            allFlora.Add(flora);
-            return allFlora; 
+            _context = context;
+        }
+        public async Task<List<Flora>> AddFlora(Flora flora)
+        {
+            _context.Floras.Add(flora);
+
+            //save change
+            await _context.SaveChangesAsync();
+
+            return await _context.Floras.ToListAsync();
         }
 
-        public List<Flora>? DeleteFlora(int id)
+        public async Task<List<Flora>?> DeleteFlora(int id)
         {
-            var flora = allFlora.Find(x => x.Id == id);
+            var flora = await _context.Floras.FindAsync(id);
             if (flora == null)
                 return null;   //can return proper status code
 
-            allFlora.Remove(flora);
+            //remove flora
+            _context.Floras.Remove(flora);
 
+            //save change
+            await _context.SaveChangesAsync();
+
+            return await _context.Floras.ToListAsync();
+        }
+
+        public async Task<List<Flora>> GetAllFlora()
+        {
+            var allFlora =await _context.Floras.ToListAsync();
             return allFlora;
         }
 
-        public List<Flora> GetAllFlora()
+        public async Task<Flora?> GetMonoFlora(int id)
         {
-            return allFlora;
-        }
-
-        public Flora? GetMonoFlora(int id)
-        {
-            var monoFlora = allFlora.Find(x => x.Id == id);
+            var monoFlora = await _context.Floras.FindAsync(id);
             if (monoFlora == null)
                 return null;
             return monoFlora; 
         }
 
-        public List<Flora>? UpdateFlora(int id, Flora request) //List<Flora>? = flora returns list || null
+        public async Task<List<Flora>?> UpdateFlora(int id, Flora request) //List<Flora>? = flora returns list || null
         {
-            var flora = allFlora.Find(x => x.Id == id);
+            var flora = await _context.Floras.FindAsync(id);
             if (flora == null)
                 return null;
 
@@ -76,7 +59,10 @@
             flora.Genus = request.Genus;
             flora.Species = request.Species;
 
-            return allFlora;
+            //save change
+            await _context.SaveChangesAsync();
+
+            return await _context.Floras.ToListAsync();
 
         }
     }
