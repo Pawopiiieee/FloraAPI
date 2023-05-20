@@ -1,4 +1,5 @@
 global using FloraAPI.Models;
+global using FloraAPI.Data;
 using FloraAPI.Services.FloraService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFloraService, FloraService>(); //to make api aware of FloraService Implementation
+builder.Services.AddDbContext<DataContext>();
+
 
 var app = builder.Build();
 
