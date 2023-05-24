@@ -46,6 +46,16 @@
             return monoFlora; 
         }
 
+        public async Task<List<Flora>> GetFloraBy(string? name, string? family)
+        {
+            //ToListAsync gets all
+            //Where = specify filter
+            var flora = await _context.Floras
+                .Where(f => (name == null || f.Name == name)
+                && (family == null || f.Family == family)).ToListAsync();
+            return flora;
+        }
+
         public async Task<List<Flora>?> UpdateFlora(int id, Flora request) //List<Flora>? = flora returns list || null
         {
             var flora = await _context.Floras.FindAsync(id);
@@ -63,7 +73,6 @@
             await _context.SaveChangesAsync();
 
             return await _context.Floras.ToListAsync();
-
         }
     }
 }

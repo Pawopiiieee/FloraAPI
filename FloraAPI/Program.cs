@@ -11,7 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFloraService, FloraService>(); //to make api aware of FloraService Implementation
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>(c =>
+{
+    //c.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
+    c.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection"));
+});
 
 
 var app = builder.Build();

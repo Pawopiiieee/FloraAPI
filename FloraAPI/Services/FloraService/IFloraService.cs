@@ -7,5 +7,6 @@
         Task<List<Flora>> AddFlora(Flora flora);
         Task<List<Flora>?> UpdateFlora(int id, Flora request);
         Task<List<Flora>?> DeleteFlora(int id);
+        Task<List<Flora>> GetFloraBy(string? name, string? family);
     }
 }

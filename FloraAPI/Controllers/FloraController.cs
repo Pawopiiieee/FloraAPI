@@ -33,6 +33,13 @@ namespace FloraAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<List<Flora>>> GetFloraBy(string? name, string? family)
+        {
+            var result = await _floraService.GetFloraBy(name,family);
+            return result;
+        }
+
         [HttpPost]
         public async Task<ActionResult<List<Flora>>> AddFlora(Flora flora)
         {
