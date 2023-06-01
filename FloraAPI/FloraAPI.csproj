@@ -22,8 +22,10 @@
 
   <ItemGroup>
     <None Remove="Data\" />
+    <None Remove="FloraClient\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="FloraClient\" />
   </ItemGroup>
 </Project>

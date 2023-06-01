@@ -1,6 +1,6 @@
 ﻿namespace FloraAPI.Services.FloraService
 {
-    public class FloraService : IFloraService
+    public class FloraService : IFloraService //implementation of IFloraService
     {
         private readonly DataContext _context;
         public FloraService(DataContext context) //inject data
