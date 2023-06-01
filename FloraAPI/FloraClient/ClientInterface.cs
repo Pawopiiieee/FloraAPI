@@ -3,6 +3,6 @@ namespace FloraAPI.FloraClient
 {
 	public interface ClientInterface 
 	{
-
+		
 	}
 }

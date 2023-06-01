@@ -5,6 +5,7 @@ namespace FloraAPI.FloraClient
 	{
 		public Client()
 		{
+			//add client for syncing data
 		}
 	}
 }
