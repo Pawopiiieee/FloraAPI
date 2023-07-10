@@ -1,0 +1,61 @@
+﻿@page "/flora"
+@using FloraAPI.Models;
+
+@inject IHttpClientFactory _clientfactory
+
+<h3>FloralData</h3>
+
+@code {
+    Flora[]? flora;
+    string? errorString;
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientfactory.CreateClient("Flora"); // use the factory to create clients: either existing client or new client
+       
+        try
+        {
+            flora = await client.GetFromJsonAsync<Flora[]>("Flora"); //if the api changes, only chage it here
+            errorString = null;
+        }
+        catch (Exception excp)
+        {
+            errorString = $"Error occur while getting flora: {excp.Message}"; //get the reason why there's an error
+        }
+    }
+
+}
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (flora is null)
+{
+    <div class="h4">Loading...</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Kingdom</th>
+                <th>Family</th>
+                <th>Genus</th>
+                <th>Species</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in flora)
+            {
+                <tr>
+                    <td>@i.Name</td>
+                    <td>@i.Kingdom</td>
+                    <td>@i.Family</td>
+                    <td>@i.Genus</td>
+                    <td>@i.Species</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
