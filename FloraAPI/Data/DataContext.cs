@@ -1,5 +1,6 @@
 ﻿//using System;
 global using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace FloraAPI.Data
 {
@@ -7,13 +8,7 @@ namespace FloraAPI.Data
 	{
 		public DataContext(DbContextOptions<DataContext> options) :base(options)
 		{
-
 		}
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=FloraDB;Trusted_Connection=true;TrustServerCertificate=true;");
-        }
 
         public DbSet<Flora> Floras { get; set; }
     }

@@ -13,10 +13,9 @@ namespace FloraAPI.Controllers
         public FloraController(IFloraService floraService)
         {
             _floraService = floraService; //interface
-            
         }
 
-        [HttpGet]   //only when using swegger
+        [HttpGet]   //only when using swgger
         public async Task<ActionResult<List<Flora>>> GetAllFlora()
         {
             return await _floraService.GetAllFlora();
@@ -31,6 +30,13 @@ namespace FloraAPI.Controllers
                 return NotFound("NO Flora");
             }
             return Ok(result);
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<List<Flora>>> GetFloraBy(string? name, string? family)
+        {
+            var result = await _floraService.GetFloraBy(name,family);
+            return result;
         }
 
         [HttpPost]
