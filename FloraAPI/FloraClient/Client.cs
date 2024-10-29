@@ -1,12 +1,10 @@
 ﻿using System;
-namespace FloraAPI.FloraClient
+namespace FloraAPI.FloraClient;
+
+public class Client
 {
-	public class Client
+	public Client()
 	{
-		public Client()
-		{
-			//add client for syncing data
-		}
+		//add client for syncing data
 	}
 }
-

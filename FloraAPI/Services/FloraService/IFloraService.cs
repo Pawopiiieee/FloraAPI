@@ -1,13 +1,12 @@
-﻿namespace FloraAPI.Services.FloraService
+﻿namespace FloraAPI.Services.FloraService;
+
+public interface IFloraService 
 {
-    public interface IFloraService //minimal required methods
-    {
-        Task<List<Flora>> GetAllFlora();
-        Task<Flora?> GetMonoFlora(int id);
-        Task<List<Flora>> AddFlora(Flora flora);
-        Task<List<Flora>?> UpdateFlora(int id, Flora request);
-        Task<List<Flora>?> DeleteFlora(int id);
-        Task<List<Flora>> GetFloraBy(string? name, string? family);
-    }
+    Task<List<Flora>> GetAllFlora(CancellationToken cancellationToken);
+    Task<Flora?> GetMonoFlora(int id, CancellationToken cancellationToken);
+    Task<List<Flora>> AddFlora(Flora flora, CancellationToken cancellationToken);
+    Task<List<Flora>?> UpdateFlora(int id, Flora request, CancellationToken cancellationToken);
+    Task<List<Flora>?> DeleteFlora(int id, CancellationToken cancellationToken);
+    Task<List<Flora>> GetFloraBy(string? name, string? family, CancellationToken cancellationToken);
 }
-//interface makes it easier to replace implementation on a fly
+

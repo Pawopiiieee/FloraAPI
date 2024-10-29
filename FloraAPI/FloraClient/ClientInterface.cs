@@ -1,8 +1,7 @@
 ﻿using System;
-namespace FloraAPI.FloraClient
+namespace FloraAPI.FloraClient;
+
+public interface ClientInterface 
 {
-	public interface ClientInterface 
-	{
 		
-	}
 }

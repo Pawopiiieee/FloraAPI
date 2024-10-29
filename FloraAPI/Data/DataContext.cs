@@ -2,16 +2,13 @@
 global using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
-namespace FloraAPI.Data
+namespace FloraAPI.Data;
+
+public class DataContext : DbContext //session with db
 {
-	public class DataContext : DbContext //session with db
+	public DataContext(DbContextOptions<DataContext> options) :base(options)
 	{
-		public DataContext(DbContextOptions<DataContext> options) :base(options)
-		{
-		}
+	}
 
-        public DbSet<Flora> Floras { get; set; }
-    }
-
+	public DbSet<Flora> Floras { get; set; }
 }
-
