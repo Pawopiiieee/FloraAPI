@@ -48,7 +48,13 @@ public class FloraService(DataContext context) : IFloraService //implementation 
         //Where = specify filter
         var flora = await context.Floras
             .Where(
-                f => name == null || f.Name.ToLower().Contains(name.ToLower()))
+                f => name == null || f.Name.ToLower().Contains(name.ToLower()) 
+                                  || f.Family.ToLower().Contains(name.ToLower()) 
+                                  || f.Genus.ToLower().Contains(name.ToLower())
+                                  || f.Species.ToLower().Contains(name.ToLower())
+                                  || f.NativeRange.Contains(name.ToLower())
+                                  || f.Habitat.ToLower().Contains(name.ToLower())
+                     )
             .ToListAsync(cancellationToken);
         return flora;
     }

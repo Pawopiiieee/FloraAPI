@@ -22,9 +22,9 @@ public class FloraController(IFloraService floraService) : ControllerBase
     }
 
     [HttpGet("search")]
-    public async Task<ActionResult<List<Flora>>> GetFloraBy(string? name, CancellationToken cancellationToken)
+    public async Task<ActionResult<List<Flora>>> GetFloraBy(string input, CancellationToken cancellationToken)
     {
-        var result = await floraService.GetFloraBy(name,cancellationToken);
+        var result = await floraService.GetFloraBy(input,cancellationToken);
         return result;
     }
 

@@ -6,6 +6,7 @@
 .DS_Store
 .db-shm
 .db-wal
+.sqlite
 
 # User-specific files
 *.rsuser
