@@ -22,9 +22,9 @@ public class FloraController(IFloraService floraService) : ControllerBase
     }
 
     [HttpGet("search")]
-    public async Task<ActionResult<List<Flora>>> GetFloraBy(string? name, string? family, CancellationToken cancellationToken)
+    public async Task<ActionResult<List<Flora>>> GetFloraBy(string? name, CancellationToken cancellationToken)
     {
-        var result = await floraService.GetFloraBy(name,family,cancellationToken);
+        var result = await floraService.GetFloraBy(name,cancellationToken);
         return result;
     }
 
@@ -33,7 +33,6 @@ public class FloraController(IFloraService floraService) : ControllerBase
     {
         var result = await floraService.AddFlora(flora, cancellationToken);
         return Ok(result);
-
     }
 
     [HttpPut("{id}")]

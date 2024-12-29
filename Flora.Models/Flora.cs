@@ -8,5 +8,6 @@ public class Flora
     public string Family { get; set; } = string.Empty;
     public string Genus { get; set; } = string.Empty;
     public string Species { get; set; } = string.Empty;
-
+    public string NativeRange { get; set; } = string.Empty;
+    public string Habitat { get; set; } = string.Empty;
 }

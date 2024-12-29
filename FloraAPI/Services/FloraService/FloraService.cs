@@ -31,6 +31,7 @@ public class FloraService(DataContext context) : IFloraService //implementation 
 
     public async Task<List<Flora>> GetAllFlora(CancellationToken cancellationToken)
     {
+        //showing all flora
         var allFlora =await context.Floras.ToListAsync(cancellationToken);
         return allFlora;
     }
@@ -41,13 +42,14 @@ public class FloraService(DataContext context) : IFloraService //implementation 
         return monoFlora is null ? null : monoFlora;
     }
 
-    public async Task<List<Flora>> GetFloraBy(string? name, string? family, CancellationToken cancellationToken)
+    public async Task<List<Flora>> GetFloraBy(string? name, CancellationToken cancellationToken)
     {
         //ToListAsync gets all
         //Where = specify filter
         var flora = await context.Floras
-            .Where(f => (name == null || f.Name == name)
-                        && (family == null || f.Family == family)).ToListAsync(cancellationToken);
+            .Where(
+                f => name == null || f.Name.ToLower().Contains(name.ToLower()))
+            .ToListAsync(cancellationToken);
         return flora;
     }
 
@@ -62,6 +64,8 @@ public class FloraService(DataContext context) : IFloraService //implementation 
         flora.Family = request.Family;
         flora.Genus = request.Genus;
         flora.Species = request.Species;
+        flora.NativeRange = request.NativeRange;
+        flora.Habitat = request.Habitat;
 
         await context.SaveChangesAsync(cancellationToken);
 

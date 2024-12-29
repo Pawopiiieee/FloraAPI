@@ -7,6 +7,6 @@ public interface IFloraService
     Task<List<Flora>> AddFlora(Flora flora, CancellationToken cancellationToken);
     Task<List<Flora>?> UpdateFlora(int id, Flora request, CancellationToken cancellationToken);
     Task<List<Flora>?> DeleteFlora(int id, CancellationToken cancellationToken);
-    Task<List<Flora>> GetFloraBy(string? name, string? family, CancellationToken cancellationToken);
+    Task<List<Flora>> GetFloraBy(string? name, CancellationToken cancellationToken);
 }
 
